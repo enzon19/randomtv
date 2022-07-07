@@ -1,0 +1,46 @@
+body {
+  font-family: 'Varela', sans-serif;
+  font-size: 14px;
+  color: #333333;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Montserrat', sans-serif;
+  margin: 0px;
+  color: #ed1c24;
+}
+
+p {  
+  margin: 0px;
+}
+
+.panel-title {
+  font-family: 'Montserrat', sans-serif;
+  background-color: #f5f5f5;
+  font-weight: bold;
+  padding: 6px;
+  border-bottom: solid 1px #dddddd;
+}
+
+.panel {
+  border: solid 1px #dddddd;
+  margin-bottom: 10px;
+}
+
+.panel-content {
+  padding: 10px;
+}
+
+a:link,
+a:visited {
+  color: #1eb0f3;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+a:link:active,
+a:visited:active,
+a:hover {
+  color: #23a0da;
+  cursor: pointer;
+}

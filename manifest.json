@@ -1,0 +1,34 @@
+{
+  "manifest_version": 3,
+  "name": "RandomTV",
+  "description": "__MSG_extensionDescription__",
+  "author": "Enzo N. Barata @ Bolha (enzon19)",
+  "version": "1.0.0.0",
+  "homepage_url": "https://randomtv.enzon19.com",
+  "default_locale": "en",
+  "icons": { 
+    "16": "/assets/logo16.png",
+    "48": "/assets/logo48.png",
+    "128": "/assets/logo128.png"
+  },
+  "action": {
+    "default_icon": { 
+      "16": "/assets/logo16.png",
+      "48": "/assets/logo48.png",
+      "128": "/assets/logo128.png"
+    },
+    "default_popup": "/html/popup.html"
+  },
+  "content_scripts": [
+    {
+      "matches": ["https://trakt.tv/*"],
+      "js": ["/js/index.js"]
+    }
+  ],
+  "background": {
+    "service_worker": "/js/background.js"
+  },
+  "permissions": [
+    "storage"
+  ]
+}

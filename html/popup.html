@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title id="settings">Settings</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500&family=Varela&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,200,0,0"/>
+
+  <link rel="icon" type="image/x-icon" href="/assets/favicon/favicon.ico">
+
+  <link rel="stylesheet" href="/styles/main.css">
+  <link rel="stylesheet" href="/styles/scroll.css">
+</head>
+
+<body style="width: 412px; overflow-x: hidden; overflow-y: scroll;">
+
+  <!-- This project is full made by Enzo - github.com/enzon19 -->
+
+  <!-- Title -->
+  <h1>RandomTV</h1>
+  <p id="extensionDescription" style="margin-bottom: 8px;">Pick a random item from a list on Trakt.</p>
+
+  <!-- Display -->
+  <div class="panel">
+    <div class="panel-title" id="panelDisplay">DISPLAY</div>
+    <div class="panel-content" id="panelDisplayDescription">Choose what happens after the item is picked.</div>
+  </div>
+
+  <!-- Advanced -->
+  <div class="panel">
+    <div class="panel-title" id="panelAdvanced">ADVANCED</div>
+    <div class="panel-content">
+      <input class="boolean optional" type="checkbox" value="1" name="user[hide_watch_now]" id="user_hide_watch_now">
+      <div class="panel-content" style="display: inline-block;" id="panelAdvancedMethod">Shows which method was used to pick the item.</div>
+      <span id="panelAdvancedMethodDescription"><b>API:</b> Uses Trakt's API to get items in lists with more than one page. Can't be used when: have filters or the list is private.<br><b>Local:</b> Uses a script in the browser to get a item. Used when: the server fails, have filters or the list is private.</span>
+    </div>
+  </div>
+
+  <footer id="credits">Developed by <a target="blank" href="https://enzon19.com">Enzo (enzon19)</a>. See this project on <a target="blank" href="https://github.com/enzon19/randomtv">GitHub</a>. Make an donation <a target="blank" href="https://enzon19.com/#donate">here</a>.</footer>
+
+  <!-- <script src="js/translate.js" async defer></script> -->
+  <script src="/js/popup.js" async defer></script>
+</body>
+
+</html>

@@ -1,0 +1,290 @@
+{
+  "@@locale": {
+    "message": "en",
+    "description": "Language code of this file"
+  },
+  "extensionName": {
+    "message": "Quick Reply Meet",
+    "description": "Extension's name"
+  },
+  "extensionDescription": {
+    "message": "Create shortcuts for messages usually used by you to be sent quickly on chat.",
+    "description": "Extension's description"
+  },
+  "settings": {
+    "message": "Settings",
+    "description": ""
+  },
+  "manageButtons": {
+    "message": "Manage buttons actions and position",
+    "description": ""
+  },
+  "buttonsPosition": {
+    "message": "Position of the buttons",
+    "description": ""
+  },
+  "btnPos0_0": {
+    "message": "Above the chat bar/box",
+    "description": ""
+  },
+  "btnPos1_0": {
+    "message": "Below the chat bar/box",
+    "description": ""
+  },
+  "buttonsRoundness": {
+    "message": "Roundness of the buttons",
+    "description": ""
+  },
+  "leftClickAction": {
+    "message": "Action of left click",
+    "description": ""
+  },
+  "btnClick0_1": {
+    "message": "Direct send, deleting content of the chat bar/box",
+    "description": ""
+  },
+  "btnClick1_1": {
+    "message": "Direct send, add to the content of the chat bar/box",
+    "description": ""
+  },
+  "btnClick2_1": {
+    "message": "Don't send, deleting content of the chat bar/box",
+    "description": ""
+  },
+  "btnClick4_1": {
+    "message": "Don't send, add to the content of the chat bar/box",
+    "description": ""
+  },
+  "rightClickAction": {
+    "message": "Action of right click",
+    "description": ""
+  },
+  "btnClick0_2": {
+    "message": "Direct send, deleting content of the chat bar/box",
+    "description": ""
+  },
+  "btnClick1_2": {
+    "message": "Direct send, add to the content of the chat bar/box",
+    "description": ""
+  },
+  "btnClick2_2": {
+    "message": "Don't send, deleting content of the chat bar/box",
+    "description": ""
+  },
+  "btnClick3_2": {
+    "message": "Don't send, add to the content of the chat bar/box",
+    "description": ""
+  },
+  "manageMessages": {
+    "message": "Manage messages",
+    "description": ""
+  },
+  "addMessage": {
+    "message": "New message",
+    "description": ""
+  },
+  "messages": {
+    "message": "Messages",
+    "description": ""
+  },
+  "titleEdit": {
+    "message": "Edit message",
+    "description": ""
+  },
+  "titleAdd": {
+    "message": "New message",
+    "description": ""
+  },
+  "messageContent": {
+    "message": "Content of the message",
+    "description": ""
+  },
+  "messageIndex": {
+    "message": "Position",
+    "description": ""
+  },
+  "saveChanges": {
+    "message": "Save",
+    "description": ""
+  },
+  "cancelChanges": {
+    "message": "Cancel",
+    "description": ""
+  },
+  "titleDelete": {
+    "message": "Delete message",
+    "description": ""
+  },
+  "descriptionDelete": {
+    "message": "Do you really want to delete the message \"$1\"?",
+    "description": ""
+  },
+  "yesDelete": {
+    "message": "Yes",
+    "description": ""
+  },
+  "noDelete": {
+    "message": "No",
+    "description": ""
+  },
+  "manageTime": {
+    "message": "Manage time to execution",
+    "description": ""
+  },
+  "checkMeetStarts": {
+    "message": "Check for the meeting starts",
+    "description": ""
+  },
+  "descriptionCheckMeetStarts": {
+    "message": "How often milliseconds the extension will check if the meeting already started.",
+    "description": ""
+  },
+  "waitToAppend": {
+    "message": "Wait for append buttons on the chat",
+    "description": ""
+  },
+  "descriptionWaitToAppend": {
+    "message": "How many milliseconds the extension need to wait to append the buttons.",
+    "description": ""
+  },
+  "reloadWarning": {
+    "message": "You need to reload the Google Meet tab to apply this setting.",
+    "description": "Showed when you try to change the values for CheckMeetStarts and WaitToAppend"
+  },
+  "credits": {
+    "message": "Developed by <a target=\"blank\" href=\"https://enzon19.com\">Enzo (enzon19)<\/a>. See this project on <a target=\"blank\" href=\"https:\/\/github.com\/enzon19\/quick-reply-meet\">GitHub<\/a>. Make an donation <a target=\"blank\" href=\"https://enzon19.com/#donate\">here</a>.",
+    "description": ""
+  },
+  "welcomeTitle": { 
+    "message": "Welcome!",
+    "description": "Título da página welcome.html na tag title"
+  },
+  "welcomePageTitle": { 
+    "message": "Welcome to",
+    "description": "Complemento ao nome da extensão na página welcome.html"
+  },
+  "nextBtnText": {
+    "message": "Next",
+    "description": ""
+  },
+  "previousBtn": {
+    "message": "Previous",
+    "description": ""
+  },
+  "addYourMessages": { 
+    "message": "Add your messages",
+    "description": ""
+  },
+  "step1_1": { 
+    "message": "Click on the icon of the extension on the address bar.",
+    "description": ""
+  },
+  "step1_2": { 
+    "message": "Create your own shortcuts to send later on a meet.",
+    "description": ""
+  },
+  "step1_2Img": { 
+    "message": "/assets/images/en/s1_2.png",
+    "description": "Image path"
+  },
+  "step1_3": { 
+    "message": "Go to a meeting on Google Meet and use the buttons on the chat to send the messages.",
+    "description": ""
+  },
+  "step1_3Img": { 
+    "message": "/assets/images/en/s1_3.png",
+    "description": "Image path"
+  },
+  "editDeleteMessages": { 
+    "message": "Edit and delete",
+    "description": ""
+  },
+  "step2_1": { 
+    "message": "You can edit or delete the shortcuts. The changes will be applied immediately.",
+    "description": ""
+  },
+  "chooseSetOfMessages": {
+    "message": "Choose a set of messages",
+    "description": ""
+  },
+  "descriptionSets": {
+    "message": "If you want, you can choose more than one set of messages to start using.",
+    "description": ""
+  },
+  "set0Title": {
+    "message": "Parts of the day",
+    "description": ""
+  },
+  "set1Title": {
+    "message": "Greetings",
+    "description": ""
+  },
+  "set2Title": {
+    "message": "Affirming and negating",
+    "description": ""
+  },
+  "set3Title": {
+    "message": "Thanking",
+    "description": ""
+  },
+  "set4Title": {
+    "message": "Leaving",
+    "description": ""
+  },
+  "moreSettings": {
+    "message": "Set and personalize even more",
+    "description": ""
+  },
+  "step3_1": { 
+    "message": "Change the roundness of the buttons on the chat and their position.",
+    "description": ""
+  },
+  "step3_1Img": { 
+    "message": "/assets/images/en/s3_1.png",
+    "description": "Image path"
+  },
+  "step3_2": { 
+    "message": "You can personalize the time for the extension wait for append buttons on the chat and for check for the meeting starts.",
+    "description": ""
+  },
+  "step3_2Img": { 
+    "message": "/assets/images/en/s3_2.png",
+    "description": "Image path"
+  },
+  "step3_3": { 
+    "message": "Change what happens when you click on the buttons using the right or left mouse button.",
+    "description": ""
+  },
+  "step3_3Img": { 
+    "message": "/assets/images/en/s3_3.png",
+    "description": "Image path"
+  },
+  "warningsTitle": { 
+    "message": "Warnings",
+    "description": ""
+  },
+  "warnings": { 
+    "message": "• The extension isn't enable for private windows by default, enable this on the browser settings;<br>• Don't use the extension for flood or spam;<br>• The owner of the extension isn't responsible for bad use or any banning, use this extension for your own.<br><br>If you have any bug or recommendation, please report them on <a href=\"https://github.com/enzon19/quick-reply-meet/issues\" target=\"_blank\">extension's GitHub page</a>.",
+    "description": ""
+  },
+  "creditsTitle": { 
+    "message": "Credits",
+    "description": ""
+  },
+  "creditsComplete": { 
+    "message": "Developed by <a target=\"blank\" href=\"https://enzon19.com\">Enzo (enzon19)<\/a>. Design made using <a target=\"blank\" href=\"https://www.muicss.com\">MUI<\/a>. See this project on <a target=\"blank\" href=\"https:\/\/github.com\/enzon19\/quick-reply-meet\">GitHub<\/a>. Make an donation <a target=\"blank\" href=\"https://enzon19.com/#donate\">here</a>.",
+    "description": "Na página de boas vindas"
+  },
+  "startUsing": { 
+    "message": "Start using",
+    "description": ""
+  },
+  "updatedTitle": { 
+    "message": "Updated!",
+    "description": ""
+  },
+  "extensionUpdated": { 
+    "message": "The extension is updated.",
+    "description": ""
+  }
+}
