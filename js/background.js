@@ -12,3 +12,12 @@ chrome.runtime.onInstalled.addListener(async (details) => {
     });
   }
 });
+
+chrome.tabs.onUpdated.addListener((tabId, changeInfo) => {
+  if (changeInfo.url) {
+    chrome.tabs.sendMessage(tabId, {
+      message: 'urlChangeded',
+      url: changeInfo.url
+    });
+  }
+});

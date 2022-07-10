@@ -51,9 +51,21 @@ function appendButton() {
 
 function pickItem() {
   const isPrivateList = document.querySelector('.pill.spoiler')?.innerHTML == 'Private';
+  const isHidingItems = filters.includes('hide=');
   const haveMoreThanOnePage = !!document.querySelector('.pagination');
-  
 
+  // any of this have to be true to make local: isPrivateList, isHidingItems, !haveMoreThanOnePage
+
+  if (isPrivateList) {
+    localPick();
+  } else if (isHidingItems) {
+    localPick();
+  } else if (!haveMoreThanOnePage) {
+    localPick();
+  } else {
+    serverPick();
+  }
+  
   // https://randomtv.enzon19.com/pickItem?username=enzon19&list_id=world-history-school&type=movie,show,season,episode,person&is_watchlist=0
   // https://randomtv.enzon19.com/pickItem?username=enzon19&type=movie,show,season,episode,person&is_watchlist=1
 }
