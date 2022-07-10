@@ -29,7 +29,7 @@ function appendButton() {
     position: absolute;
     z-index: 1;
     bottom: 100%;
-    left: 150%;
+    left: 163%;
     margin-left: -60px;
     opacity: 0;
   }
@@ -50,7 +50,10 @@ function appendButton() {
 }
 
 function pickItem() {
-  alert('aaaa')
+  const isPrivateList = document.querySelector('.pill.spoiler')?.innerHTML == 'Private';
+  const haveMoreThanOnePage = !!document.querySelector('.pagination');
+  
+
   // https://randomtv.enzon19.com/pickItem?username=enzon19&list_id=world-history-school&type=movie,show,season,episode,person&is_watchlist=0
   // https://randomtv.enzon19.com/pickItem?username=enzon19&type=movie,show,season,episode,person&is_watchlist=1
 }
