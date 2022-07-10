@@ -3,10 +3,11 @@
 const list = new RegExp(/\/users\/(.*)\/lists\/(.*)\?(.*)/);
 const watchlist = new RegExp(/\/users\/(.*)\/(watchlist)\?(.*)/);
 let actualUrl, urlVariables, username, listId, filters;
+let isWatchlist = false;
 
 function updateVariables() {
   actualUrl = window.location.href;
-  urlVariables = actualUrl.match(/\/users\/.*\/watchlist/) ? actualUrl.match(watchlist) : actualUrl.match(list);
+  urlVariables = actualUrl.match(/\/users\/.*\/watchlist/) ? (isWatchlist = true, actualUrl.match(watchlist)) : actualUrl.match(list);
   if (urlVariables) {
     username = urlVariables[1];
     listId = urlVariables[2];
@@ -58,10 +59,10 @@ function appendButton() {
 }
 
 function pickItem() {
-  const isPrivateList = document.querySelector('.pill.spoiler')?.innerHTML == 'Private';
-  const isHidingItems = filters.includes('hide=');
+  const isPrivateList = ['Friends', 'Private'].includes(document.querySelector('.pill.spoiler')?.innerHTML);
+  const isHidingItems = filters.includes('hide=') || filters.includes('genres=');
   const haveMoreThanOnePage = !!document.querySelector('.pagination');
-console.log(filters, filters.includes('hide='))
+
   // any of this have to be true to make local: isPrivateList, isHidingItems, !haveMoreThanOnePage
 
   if (isPrivateList) {
@@ -78,12 +79,32 @@ console.log(filters, filters.includes('hide='))
   // https://randomtv.enzon19.com/pickItem?username=enzon19&type=movie,show,season,episode,person&is_watchlist=1
 }
 
+function pickItem(items) {
+  console.log(items)
+  const luckNumber = Math.floor(Math.random() * items.length);
+  return items[luckNumber];
+}
+
 function localPick() {
+  console.log('aaaaa')
   alert('local')
+  console.log(Array.from(document.getElementsByClassName('grid-item')), pickItem(Array.from(document.getElementsByClassName('grid-item'))));
 }
 
 function serverPick() {
   alert('server')
+  let filterType = 'movie,show,season,episode,person';
+  if (filters.includes('display=')) filterType = filters.match(/display=(.*)\&|display=(.*)/)[1] || filters.match(/display=(.*)\&|display=(.*)/)[2];
+  let apiUrl = `https://randomtv.enzon19.com/pickItem?username=${username}&list_id=${listId}&type=${filterType}&is_watchlist=${+isWatchlist}`;
+
+  fetch(apiUrl).then(response => {
+    console.log(response)
+    console.log(pickItem(response));
+  }).catch(() => localPick())
+}
+
+function showItem(url, name, cover) {
+
 }
 
 function main() {
