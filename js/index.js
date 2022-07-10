@@ -2,13 +2,19 @@
 
 const list = new RegExp(/\/users\/(.*)\/lists\/(.*)\?(.*)/);
 const watchlist = new RegExp(/\/users\/(.*)\/(watchlist)\?(.*)/);
-const actualUrl = window.location.href;
+let actualUrl, urlVariables, username, listId, filters;
 
-const urlVariables = actualUrl.match(/\/users\/.*\/watchlist/) ? actualUrl.match(watchlist) : actualUrl.match(list);
+function updateVariables() {
+  actualUrl = window.location.href;
+  urlVariables = actualUrl.match(/\/users\/.*\/watchlist/) ? actualUrl.match(watchlist) : actualUrl.match(list);
+  if (urlVariables) {
+    username = urlVariables[1];
+    listId = urlVariables[2];
+    filters = urlVariables[3];
+  }
+}
 
-const username = urlVariables ? urlVariables[1] : undefined;
-const listId = urlVariables ? urlVariables[2] : undefined;
-const filters = urlVariables ? urlVariables[3] : undefined;
+updateVariables();
 
 function appendButton() {
   const htmlToInsert = `<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,200,0,0"/>
@@ -55,7 +61,7 @@ function pickItem() {
   const isPrivateList = document.querySelector('.pill.spoiler')?.innerHTML == 'Private';
   const isHidingItems = filters.includes('hide=');
   const haveMoreThanOnePage = !!document.querySelector('.pagination');
-
+console.log(filters, filters.includes('hide='))
   // any of this have to be true to make local: isPrivateList, isHidingItems, !haveMoreThanOnePage
 
   if (isPrivateList) {
@@ -72,8 +78,15 @@ function pickItem() {
   // https://randomtv.enzon19.com/pickItem?username=enzon19&type=movie,show,season,episode,person&is_watchlist=1
 }
 
+function localPick() {
+  alert('local')
+}
+
+function serverPick() {
+  alert('server')
+}
+
 function main() {
-  alert(listId)
   if (document.readyState !== 'loading') {
     if (username && listId) appendButton();
   } else {
@@ -82,5 +95,10 @@ function main() {
     });
   }
 }
+
+document.addEventListener("turbolinks:load", function() {
+  updateVariables();
+  main();
+});
 
 main();

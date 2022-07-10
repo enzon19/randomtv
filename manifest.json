@@ -20,7 +20,7 @@
   },
   "content_scripts": [
     {
-      "matches": ["https://trakt.tv/*"],
+      "matches": ["*://*.trakt.tv/*"],
       "js": ["/js/index.js"]
     }
   ],
