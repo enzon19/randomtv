@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
   "name": "RandomTV",
-  "description": "__MSG_extensionDescription__",
+  "description": "Pick a random item from a list on Trakt.",
   "author": "Enzo N. Barata @ Bolha (enzon19)",
   "version": "1.0.0.0",
   "homepage_url": "https://randomtv.enzon19.com",
