@@ -1,3 +1,5 @@
+'use strict';
+
 chrome.runtime.onInstalled.addListener(async (details) => {
   if (details.reason == "install") {
     const defaultValues = await (await fetch(chrome.runtime.getURL("/data/defaultSettings.json"))).json();
@@ -9,15 +11,6 @@ chrome.runtime.onInstalled.addListener(async (details) => {
   } else if (details.reason == "update") {
     chrome.tabs.create({
       url: "/pages/updated.html",
-    });
-  }
-});
-
-chrome.tabs.onUpdated.addListener((tabId, changeInfo) => {
-  if (changeInfo.url) {
-    chrome.tabs.sendMessage(tabId, {
-      message: 'urlChangeded',
-      url: changeInfo.url
     });
   }
 });

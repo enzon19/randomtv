@@ -1,12 +1,14 @@
+'use strict';
+
 const list = new RegExp(/\/users\/(.*)\/lists\/(.*)\?(.*)/);
 const watchlist = new RegExp(/\/users\/(.*)\/(watchlist)\?(.*)/);
 const actualUrl = window.location.href;
 
 const urlVariables = actualUrl.match(/\/users\/.*\/watchlist/) ? actualUrl.match(watchlist) : actualUrl.match(list);
 
-const username = urlVariables[1];
-const listId = urlVariables[2];
-const filters = urlVariables[3];
+const username = urlVariables ? urlVariables[1] : undefined;
+const listId = urlVariables ? urlVariables[2] : undefined;
+const filters = urlVariables ? urlVariables[3] : undefined;
 
 function appendButton() {
   const htmlToInsert = `<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,200,0,0"/>
@@ -65,15 +67,20 @@ function pickItem() {
   } else {
     serverPick();
   }
-  
+
   // https://randomtv.enzon19.com/pickItem?username=enzon19&list_id=world-history-school&type=movie,show,season,episode,person&is_watchlist=0
   // https://randomtv.enzon19.com/pickItem?username=enzon19&type=movie,show,season,episode,person&is_watchlist=1
 }
 
-if (document.readyState !== 'loading') {
-  if (username && listId) appendButton();
-} else {
-  document.addEventListener('DOMContentLoaded', () => {
+function main() {
+  alert(listId)
+  if (document.readyState !== 'loading') {
     if (username && listId) appendButton();
-  });
+  } else {
+    document.addEventListener('DOMContentLoaded', () => {
+      if (username && listId) appendButton();
+    });
+  }
 }
+
+main();
