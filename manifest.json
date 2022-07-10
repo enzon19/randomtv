@@ -5,7 +5,6 @@
   "author": "Enzo N. Barata @ Bolha (enzon19)",
   "version": "1.0.0.0",
   "homepage_url": "https://randomtv.enzon19.com",
-  "default_locale": "en",
   "icons": { 
     "16": "/assets/logo16.png",
     "48": "/assets/logo48.png",
