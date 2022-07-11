@@ -11,3 +11,25 @@ chrome.runtime.onInstalled.addListener(async (details) => {
     });
   }
 });
+
+chrome.runtime.onMessage.addListener((message, sender) => {
+  if (message.action == 'serverRequest') {
+    fetch(message.urlToRequest).then(response => {
+      chrome.tabs.sendMessage({
+        tabId: sender.tab.id,
+        message: {
+          action: 'serverResponse',
+          response: response
+        }
+      })
+    }).catch(error => {
+      chrome.tabs.sendMessage({
+        tabId: sender.tab.id,
+        message: {
+          action: 'serverError',
+          error: error
+        }
+      })
+    });
+  }
+})

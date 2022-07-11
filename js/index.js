@@ -54,11 +54,11 @@ function appendButton() {
   const documentFragment = range.createContextualFragment(htmlToInsert);
   document.querySelector('.dropdown.filter-dropdown').after(documentFragment);
 
-  document.getElementById('randomtv').addEventListener('click', () => pickItem());
+  document.getElementById('randomtv').addEventListener('click', () => chooseProcess());
   // adapted from https://developer.mozilla.org/en-US/docs/Web/API/range/createContextualFragment
 }
 
-function pickItem() {
+function chooseProcess() {
   const isPrivateList = ['Friends', 'Private'].includes(document.querySelector('.pill.spoiler')?.innerHTML);
   const isHidingItems = filters.includes('hide=') || filters.includes('genres=');
   const haveMoreThanOnePage = !!document.querySelector('.pagination');
@@ -72,7 +72,7 @@ function pickItem() {
   } else if (!haveMoreThanOnePage) {
     localPick();
   } else {
-    serverPick();
+    chrome.
   }
 
   // https://randomtv.enzon19.com/pickItem?username=enzon19&list_id=world-history-school&type=movie,show,season,episode,person&is_watchlist=0
@@ -86,7 +86,6 @@ function pickItem(items) {
 }
 
 function localPick() {
-  console.log('aaaaa')
   alert('local')
   console.log(Array.from(document.getElementsByClassName('grid-item')), pickItem(Array.from(document.getElementsByClassName('grid-item'))));
 }
@@ -95,13 +94,17 @@ function serverPick() {
   alert('server')
   let filterType = 'movie,show,season,episode,person';
   if (filters.includes('display=')) filterType = filters.match(/display=(.*)\&|display=(.*)/)[1] || filters.match(/display=(.*)\&|display=(.*)/)[2];
-  let apiUrl = `https://randomtv.enzon19.com/pickItem?username=${username}&list_id=${listId}&type=${filterType}&is_watchlist=${+isWatchlist}`;
-
-  fetch(apiUrl).then(response => {
-    console.log(response)
-    console.log(pickItem(response));
-  }).catch(() => localPick())
+  let urlToRequest = `https://randomtv.enzon19.com/pickItem?username=${username}&list_id=${listId}&type=${filterType}&is_watchlist=${+isWatchlist}`;
+  
+  chrome.runtime.sendMessage({
+    message: {
+      'action': 'serverRequest', 
+      'apiUrl': urlToRequest
+    }
+  });
 }
+
+chrome.runtime.onMessage.addListener
 
 function showItem(url, name, cover) {
 
