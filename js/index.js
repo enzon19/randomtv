@@ -72,7 +72,7 @@ function chooseProcess() {
   } else if (!haveMoreThanOnePage) {
     localPick();
   } else {
-    chrome.
+    serverPick();
   }
 
   // https://randomtv.enzon19.com/pickItem?username=enzon19&list_id=world-history-school&type=movie,show,season,episode,person&is_watchlist=0
@@ -80,31 +80,41 @@ function chooseProcess() {
 }
 
 function pickItem(items) {
-  console.log(items)
   const luckNumber = Math.floor(Math.random() * items.length);
   return items[luckNumber];
 }
 
 function localPick() {
-  alert('local')
-  console.log(Array.from(document.getElementsByClassName('grid-item')), pickItem(Array.from(document.getElementsByClassName('grid-item'))));
+  const pickedItem = pickItem(Array.from(document.getElementsByClassName('grid-item')));
+  //showItem(, 'local');
 }
 
 function serverPick() {
-  alert('server')
   let filterType = 'movie,show,season,episode,person';
   if (filters.includes('display=')) filterType = filters.match(/display=(.*)\&|display=(.*)/)[1] || filters.match(/display=(.*)\&|display=(.*)/)[2];
-  let urlToRequest = `https://randomtv.enzon19.com/pickItem?username=${username}&list_id=${listId}&type=${filterType}&is_watchlist=${+isWatchlist}`;
   
   chrome.runtime.sendMessage({
-    message: {
-      'action': 'serverRequest', 
-      'apiUrl': urlToRequest
-    }
+    'action': 'serverRequest', 
+    'username': username,
+    'listId': listId,
+    'filterType': filterType,
+    'isWatchlist': isWatchlist
   });
 }
 
-chrome.runtime.onMessage.addListener
+// finishing the work of serverPick()
+chrome.runtime.onMessage.addListener(message => {
+  if (message.action == 'serverResponse') {
+    if (message.status == 200) {
+      const pickedItem = pickItem(message.response);
+      //showItem(, 'server');
+    } else {
+      localPick();
+    }
+  } else if (message.action == 'serverError') {
+    localPick();
+  }
+})
 
 function showItem(url, name, cover) {
 

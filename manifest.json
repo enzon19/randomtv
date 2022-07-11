@@ -29,5 +29,8 @@
   },
   "permissions": [
     "storage"
+  ],
+  "host_permissions": [
+    "https://randomtv.enzon19.com/*"
   ]
 }
