@@ -14,6 +14,20 @@ p {
   margin: 0px;
 }
 
+a:link,
+a:visited {
+  color: #1eb0f3;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+a:link:active,
+a:visited:active,
+a:hover {
+  color: #23a0da;
+  cursor: pointer;
+}
+
 .panel-title {
   font-family: 'Montserrat', sans-serif;
   background-color: #f5f5f5;
@@ -31,16 +45,32 @@ p {
   padding: 10px;
 }
 
-a:link,
-a:visited {
-  color: #1eb0f3;
-  text-decoration: none;
+.show-grid {
+  padding: 0px 10px 10px 10px;
+  display: inline-grid;
+  grid-template-columns: auto auto auto;
+  text-align: center;
+  column-gap: 10px;
+}
+
+.show-image {
+  width: 112px;
+}
+
+.show-item {
+  padding: 4px;
+  background-color: #f5f5f5;
+  border: solid 1px #dddddd;
+  transition: all 0.2s;
   cursor: pointer;
 }
 
-a:link:active,
-a:visited:active,
-a:hover {
-  color: #23a0da;
-  cursor: pointer;
+.show-item:hover {
+  box-shadow: 0px 0px 10px 1px #ed1c234b;
+  transition: all 0.2s;
+}
+
+.applied {
+  box-shadow: 0px 0px 10px 1px #ed1c231e;
+  border-color: #ed1c24
 }

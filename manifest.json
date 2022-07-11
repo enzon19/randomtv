@@ -1,6 +1,6 @@
 {
   "manifest_version": 3,
-  "name": "RandomTV",
+  "name": "RandomTV for Trakt",
   "description": "Pick a random item from a list on Trakt.",
   "author": "Enzo N. Barata @ Bolha (enzon19)",
   "version": "1.0.0.0",

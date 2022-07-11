@@ -13,9 +13,7 @@ chrome.runtime.onInstalled.addListener(async (details) => {
 });
 
 chrome.runtime.onMessage.addListener((message, sender) => {
-  console.log(message)
   if (message.action == 'serverRequest') {
-    console.log(`https://randomtv.enzon19.com/pickItem?username=${message.username}&list_id=${message.listId}&type=${message.filterType}&is_watchlist=${+message.isWatchlist}`)
     fetch(`https://randomtv.enzon19.com/pickItem?username=${message.username}&list_id=${message.listId}&type=${message.filterType}&is_watchlist=${+message.isWatchlist}`).then(async response => {
       chrome.tabs.sendMessage(sender.tab.id, {
         action: 'serverResponse',
