@@ -30,15 +30,15 @@
     <div class="panel-title" id="panelDisplay">DISPLAY</div>
     <div class="panel-content" id="panelDisplayDescription">Choose what happens after the item is picked.</div>
     <div class="show-grid">
-      <div class="show-item">
+      <div class="show-item displayType" id="displayType-highlight">
         <img class="show-image" src="/assets/highlight.png">
         <span>Highlight</span>
       </div>
-      <div class="show-item applied ">
+      <div class="show-item displayType" id="displayType-modal">
         <img class="show-image" src="/assets/modal.png">
         <span>Modal</span>
       </div>
-      <div class="show-item">
+      <div class="show-item displayType" id="displayType-redirect">
         <img class="show-image" src="/assets/redirect.png">
         <span>Redirect</span>
       </div>
@@ -49,7 +49,7 @@
   <div class="panel">
     <div class="panel-title" id="panelAdvanced">ADVANCED</div>
     <div class="panel-content">
-      <input type="checkbox" value="1" name="user[hide_watch_now]" id="user_hide_watch_now">
+      <input type="checkbox" id="showMethod">
       <div class="panel-content" style="display: inline-block;" id="panelAdvancedMethod">Show which method was used to pick the item.</div><br>
       <span id="panelAdvancedMethodDescription"><b>API:</b> Uses Trakt's API to get items in lists with more than one page. Can't be used when: have filters that hide items (except "type" filter) or the list is private.<br><b>Local:</b> Uses a script in the browser to get a item. Used when: the list have just one page, the server fails, have filters that hide items or the list is private.</span>
     </div>

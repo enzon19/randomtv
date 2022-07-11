@@ -70,7 +70,7 @@ a:hover {
   transition: all 0.2s;
 }
 
-.applied {
+.displayType-applied {
   box-shadow: 0px 0px 10px 1px #ed1c231e;
   border-color: #ed1c24
 }
