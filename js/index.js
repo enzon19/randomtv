@@ -65,33 +65,37 @@ function chooseProcess() {
 
   // any of this have to be true to make local: isPrivateList, isHidingItems, !haveMoreThanOnePage
 
-  if (isPrivateList) {
-    localPick();
-  } else if (isHidingItems) {
-    localPick();
-  } else if (!haveMoreThanOnePage) {
-    localPick();
-  } else {
+  // if (isPrivateList) {
+  //   localPick();
+  // } else if (isHidingItems) {
+  //   localPick();
+  // } else if (!haveMoreThanOnePage) {
+  //   localPick();
+  // } else {
     serverPick();
-  }
+  // }
 
   // https://randomtv.enzon19.com/pickItem?username=enzon19&list_id=world-history-school&type=movie,show,season,episode,person&is_watchlist=0
   // https://randomtv.enzon19.com/pickItem?username=enzon19&type=movie,show,season,episode,person&is_watchlist=1
 }
 
-function pickItem(items) {
+function getRandomItem(items) {
   const luckNumber = Math.floor(Math.random() * items.length);
   return items[luckNumber];
 }
 
 function localPick() {
-  const pickedItem = pickItem(Array.from(document.getElementsByClassName('grid-item')));
-  //showItem(, 'local');
+  const pickedItem = getRandomItem(Array.from(document.getElementsByClassName('grid-item')));
+  if (pickedItem) {
+    //showItem(, 'local');
+  } else {
+    console.error("Error with RandomTV.")
+  }
 }
 
 function serverPick() {
   let filterType = 'movie,show,season,episode,person';
-  if (filters.includes('display=')) filterType = filters.match(/display=(.*)\&|display=(.*)/)[1] || filters.match(/display=(.*)\&|display=(.*)/)[2];
+  if (filters.includes('display=')) filterType = (filters.match(/display=(.*)\&|display=(.*)/)[1] || filters.match(/display=(.*)\&|display=(.*)/)[2]) + "s";
   
   chrome.runtime.sendMessage({
     'action': 'serverRequest', 
@@ -106,8 +110,8 @@ function serverPick() {
 chrome.runtime.onMessage.addListener(message => {
   if (message.action == 'serverResponse') {
     if (message.status == 200) {
-      const pickedItem = pickItem(message.response);
-      //showItem(, 'server');
+      const pickedItem = getRandomItem(message.response);
+      showItem(pickedItem.title, pickedItem.subtitle, pickedItem.url, pickedItem.cover, 'server');
     } else {
       localPick();
     }
@@ -116,8 +120,15 @@ chrome.runtime.onMessage.addListener(message => {
   }
 })
 
-function showItem(url, name, cover) {
+async function showItem(subtitle, title, url, cover, method) {
+  const displayType = await chrome.storage.sync.get('displayType');
+  const showMethod = await chrome.storage.sync.get('showMethod');
 
+  if (showMethod && displayType == 'modal') {
+
+  } else if (showMethod) {
+    alert(method);
+  }
 }
 
 function main() {
