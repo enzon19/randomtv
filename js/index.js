@@ -64,7 +64,6 @@ function chooseProcess() {
   const haveMoreThanOnePage = !!document.querySelector('.pagination');
 
   // any of this have to be true to make local: isPrivateList, isHidingItems, !haveMoreThanOnePage
-
   if (isPrivateList || isHidingItems || !haveMoreThanOnePage) {
     localPick();
   } else {
@@ -168,7 +167,6 @@ function showUsingModal(title, subtitle, url, cover, method, showMethod) {
         --cc-webkit-scrollbar-bg: #667481;
         --cc-webkit-scrollbar-bg-hover: #9199a0;
         box-sizing: border-box;
-        transition: opacity .15s linear;
         position: fixed;
         z-index: 10000;
         background-color: #f5f5f7;
@@ -256,6 +254,7 @@ function showUsingModal(title, subtitle, url, cover, method, showMethod) {
     <div class="randomTV-backdrop modal-backdrop fade in blur"></div>`
 
     document.getElementsByTagName('body')[0].insertAdjacentHTML('beforeend', modal);
+
     document.getElementById('randomTV-closeModal').addEventListener('click', () => {
       document.getElementsByClassName('randomTV-modalDialogInside')[0].remove();
       document.getElementsByClassName('randomTV-modalDialog')[0].remove();
