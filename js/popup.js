@@ -2,7 +2,7 @@
 
 async function updateSettings() {
   const options = ['displayType'];
-  const checkboxes = ['showMethod'];
+  const checkboxes = ['showMethod', 'disableAPI'];
   const data = await chrome.storage.sync.get([...options, ...checkboxes]);
 
   options.forEach(option => {
