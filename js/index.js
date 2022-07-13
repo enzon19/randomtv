@@ -45,6 +45,26 @@ function appendButton() {
   #randomTV-button:hover #randomTV-tooltip {
     opacity: 1;
   }
+  .randomTV-highlight {
+    transition: all 0.4s;
+    transform: scale(1.3, 1.3);
+    z-index: 1000;
+  }
+
+  .randomTV-highlight:hover {
+    transition: all 0.4s;
+    transform: scale(1, 1);
+  }
+  .randomTV-highlight > a > div {
+    border: 1px solid #ed1c24 !important;
+    border-bottom: 0px !important;
+    box-shadow: 0px 0px 20px 4px rgba(0, 0, 0, 0.4);
+  }
+  .randomTV-highlight > .quick-icons.smaller {
+    border: 1px solid #ed1c24 !important;
+    border-top: 0px !important;
+    box-shadow: 0px 0px 20px 4px rgba(0, 0, 0, 0.4);
+  }
   </style>
   <span id="randomTV-button" class="material-symbols-outlined trakt-icon-arrow-right">
     <div class="tooltip fade top in" role="tooltip" id="randomTV-tooltip"><div class="tooltip-arrow"></div><div class="tooltip-inner" style="font-family: varela round,helvetica neue,Helvetica,Arial,sans-serif !important">Random</div></div>
@@ -89,7 +109,7 @@ function localPick() {
     const title = pickedItem.querySelectorAll('a.titles-link')[0];
     const subtitle = pickedItem.querySelectorAll('a.titles-link')[1];
 
-    showItem(title.innerText, subtitle.innerText, url.href, cover.dataset.original, 'Local');
+    showItem(title.innerText, subtitle.innerText, url.href, cover.dataset.original, 'Local', pickedItem);
   } else {
     console.error('Error with RandomTV.')
   }
@@ -122,19 +142,19 @@ chrome.runtime.onMessage.addListener(message => {
   }
 })
 
-async function showItem(title, subtitle, url, cover, method) {
+async function showItem(title, subtitle, url, cover, method, pickedItem) {
   const displayType = (await chrome.storage.sync.get('displayType')).displayType;
   const showMethod = (await chrome.storage.sync.get('showMethod')).showMethod;
   const displayActions = {
-    'modal': showUsingModal
+    'modal': showUsingModal,
+    'highlight': showHighlighting,
+    'redirect': showRedirecting
   }
-  // ,
-  //   'highlight': showHighlighting,
-  //   'redirect': showRedirecting
-  displayActions[displayType](title, subtitle, url, cover, method, showMethod);
+  displayActions[displayType](title, subtitle, url, cover, method, showMethod, pickedItem);
 }
 
 async function showUsingModal(title, subtitle, url, cover, method, showMethod) {
+  removeHighlights();
   if (!document.getElementsByClassName('randomTV-modalDialog')[0]) {
     const modal = `<link rel="stylesheet" href="${chrome.runtime.getURL("/data/modal.css")}" class="randomTV-modal">
     <div class="randomTV-modalDialog">
@@ -163,6 +183,30 @@ async function showUsingModal(title, subtitle, url, cover, method, showMethod) {
       document.getElementsByClassName('randomTV-modal')[0].remove();
       document.getElementsByClassName('randomTV-backdrop')[0].remove();
     });
+  }
+}
+
+function showHighlighting(title, subtitle, url, cover, method, showMethod, pickedItem) {
+  if (method == 'API') {
+    showUsingModal(title, subtitle, url, cover, method, showMethod);
+  } else {
+    removeHighlights();
+    pickedItem.scrollIntoView({"behavior": "smooth"});
+    pickedItem.classList.add('randomTV-highlight');
+  }
+
+  if (showMethod) alert(method);
+}
+
+function showRedirecting(title, subtitle, url, cover, method, showMethod) {
+  removeHighlights();
+  if (showMethod) alert(method);
+  window.location.href = url;
+}
+
+function removeHighlights() {
+  for (const element of document.getElementsByClassName('randomTV-highlight')) {
+    element.classList.remove('randomTV-highlight')
   }
 }
 
