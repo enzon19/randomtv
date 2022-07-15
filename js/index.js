@@ -2,12 +2,13 @@
 
 const list = new RegExp(/\/users\/(.*)\/lists\/(.*)\?(.*)/);
 const watchlist = new RegExp(/\/users\/(.*)\/(watchlist)\/?\??(.*)/); // \/users\/(.*)\/(watchlist)\??(.*)
+const recommendations = new RegExp(/\/users\/(.*)\/(recommendations)\/?\??(.*)/);
 let actualUrl, urlVariables, username, listId, filters;
 let isWatchlist = false;
 
 function updateVariables() {
   actualUrl = window.location.href;
-  urlVariables = actualUrl.match(/\/users\/.*\/watchlist/) ? (isWatchlist = true, actualUrl.match(watchlist)) : actualUrl.match(list);
+  urlVariables = actualUrl.match(/\/users\/.*\/watchlist/) ? (isWatchlist = true, actualUrl.match(watchlist)) : (actualUrl.match(/\/users\/.*\/recommendations/) ? actualUrl.match(recommendations) : actualUrl.match(list));
   if (urlVariables) {
     username = urlVariables[1];
     listId = urlVariables[2];
