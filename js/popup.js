@@ -31,7 +31,6 @@ function setOption(option, elementId) {
   const optionElement = document.getElementById(elementId);
   let newData = {};
   newData[elementId.split("-")[0]] = elementId.split("-")[1];
-  console.log(newData)
   chrome.storage.sync.set(newData);
   applyEffectOnOption(option, elementId);
 }
