@@ -9,7 +9,7 @@ Pick a random item from a list on Trakt.
 <a href="https://addons.mozilla.org/en-US/firefox/addon/randomtv-for-trakt/">
     <img align="center" src="https://ffp4g1ylyit3jdyti1hqcvtb-wpengine.netdna-ssl.com/addons/files/2015/11/get-the-addon.png" alt="RandomTV for Trakt" width="206" height="72">
 </a>
-<a href="https://chrome.google.com/webstore/detail/randomtv/eankjgfbmcakoobgeejngglbdikgiibl">
+<a href="https://chrome.google.com/webstore/detail/randomtv/pfpgceagljbjijjfbhafopadmhdifoaa">
     <img align="center" src="https://storage.googleapis.com/web-dev-uploads/image/WlD8wC6g8khYWPJUsQceQkhXSlv1/HRs9MPufa1J1h5glNhut.png" alt="RandomTV for Trakt" width="238" height="72">
 </a>
 <a href="https://microsoftedge.microsoft.com/addons/detail/randomtv/hmknemmgpfmbcjnedfoboajnheffiino">
