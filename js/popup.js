@@ -20,17 +20,17 @@ async function updateSettings() {
 }
 
 function applyEffectOnOption(option, elementId) {
-  for (const element of document.getElementsByClassName(option + "-applied")) {
-    element.classList.remove(option + "-applied")
+  for (const element of document.getElementsByClassName(option + '-applied')) {
+    element.classList.remove(option + '-applied')
   }
   const optionElement = document.getElementById(elementId);
-  optionElement.classList.add(option + "-applied");
+  optionElement.classList.add(option + '-applied');
 }
 
 function setOption(option, elementId) {
   const optionElement = document.getElementById(elementId);
   let newData = {};
-  newData[elementId.split("-")[0]] = elementId.split("-")[1];
+  newData[elementId.split('-')[0]] = elementId.split('-')[1];
   chrome.storage.sync.set(newData);
   applyEffectOnOption(option, elementId);
 }
