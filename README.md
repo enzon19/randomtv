@@ -1,5 +1,5 @@
 <p align="center">
-    <img align="center" src="https://raw.githubusercontent.com/enzon19/randomtv/main/assets/logo512.png" alt="RandomTV for Trakt" width="187" height="187">
+    <img align="center" src="https://raw.githubusercontent.com/enzon19/randomtv/main/assets/logo.png" alt="RandomTV for Trakt" width="187" height="187">
 </p>
 
 # RandomTV for Trakt
