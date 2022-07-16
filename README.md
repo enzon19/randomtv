@@ -7,13 +7,13 @@ Pick a random item from a list on Trakt.
 
 ### Download
 <a href="https://addons.mozilla.org/en-US/firefox/addon/randomtv-for-trakt/">
-    <img align="center" src="https://ffp4g1ylyit3jdyti1hqcvtb-wpengine.netdna-ssl.com/addons/files/2015/11/get-the-addon.png" alt="Quick Reply Meet" width="206" height="72">
+    <img align="center" src="https://ffp4g1ylyit3jdyti1hqcvtb-wpengine.netdna-ssl.com/addons/files/2015/11/get-the-addon.png" alt="RandomTV for Trakt" width="206" height="72">
 </a>
 <a href="https://chrome.google.com/webstore/detail/randomtv/eankjgfbmcakoobgeejngglbdikgiibl">
-    <img align="center" src="https://storage.googleapis.com/web-dev-uploads/image/WlD8wC6g8khYWPJUsQceQkhXSlv1/HRs9MPufa1J1h5glNhut.png" alt="Quick Reply Meet" width="238" height="72">
+    <img align="center" src="https://storage.googleapis.com/web-dev-uploads/image/WlD8wC6g8khYWPJUsQceQkhXSlv1/HRs9MPufa1J1h5glNhut.png" alt="RandomTV for Trakt" width="238" height="72">
 </a>
-<a href="https://microsoftedge.microsoft.com/addons/detail/randomtv/lonfbmmkmojfammfcljbnelobfnhpigk">
-    <img align="center" src="https://getbadgecdn.azureedge.net/images/English_L.png" alt="Quick Reply Meet" width="200" height="72">
+<a href="https://microsoftedge.microsoft.com/addons/detail/randomtv/hmknemmgpfmbcjnedfoboajnheffiino">
+    <img align="center" src="https://getbadgecdn.azureedge.net/images/English_L.png" alt="RandomTV for Trakt" width="200" height="72">
 </a>
 
 ### About
