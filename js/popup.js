@@ -1,45 +1,50 @@
-'use strict';
+const radiosNames = ["displayType", "defaultMethod"];
+const checkboxesNames = ["showMethod", "disableAPI"];
+const textsInputsNames = ["apiKey"];
 
 async function updateSettings() {
-  const options = ['displayType'];
-  const checkboxes = ['showMethod', 'disableAPI'];
-  const data = await chrome.storage.sync.get([...options, ...checkboxes]);
+  const data = await chrome.storage.sync.get([
+    ...radiosNames,
+    ...checkboxesNames,
+    ...textsInputsNames,
+  ]);
 
-  options.forEach(option => {
-    for (const element of document.getElementsByClassName(option)) {
-      element.addEventListener('click', () => setOption(option, element.id));
-    }
-    applyEffectOnOption(option, `${option}-${data[option]}`);
-  });
-  
-  checkboxes.forEach(checkbox => {
-    const checkboxElement = document.getElementById(checkbox);
-    checkboxElement.checked = data[checkbox];
-    checkboxElement.addEventListener('click', () => setCheckbox(checkbox));
-  });
-}
-
-function applyEffectOnOption(option, elementId) {
-  for (const element of document.getElementsByClassName(option + '-applied')) {
-    element.classList.remove(option + '-applied')
+  for (const radioName of radiosNames) {
+    const radio = document.querySelector(
+      `input[name="${radioName}"][value="${data?.[radioName]}"]`
+    );
+    if (radio && data?.[radioName]) radio.checked = true;
   }
-  const optionElement = document.getElementById(elementId);
-  optionElement.classList.add(option + '-applied');
+
+  for (const checkboxName of checkboxesNames) {
+    const checkbox = document.querySelector(`input[name="${checkboxName}"]`);
+    if (checkbox && data?.[checkboxName])
+      checkbox.checked = data?.[checkboxName];
+  }
+
+  for (const textInputName of textsInputsNames) {
+    const input = document.querySelector(`input[name="${textInputName}"]`);
+    if (input && data?.[textInputName]) input.value = data?.[textInputName];
+  }
 }
 
-function setOption(option, elementId) {
-  const optionElement = document.getElementById(elementId);
-  let newData = {};
-  newData[elementId.split('-')[0]] = elementId.split('-')[1];
-  chrome.storage.sync.set(newData);
-  applyEffectOnOption(option, elementId);
-}
+updateSettings();
+document.querySelectorAll("form").forEach((form) => {
+  form.addEventListener("change", async (event) => {
+    console.log(event.target);
+    const prop = event.target.type === "checkbox" ? "checked" : "value";
+    chrome.storage.sync.set({ [event.target.name]: event.target[prop] });
+  });
+  form.addEventListener("submit", async (event) => {
+    event.preventDefault();
 
-function setCheckbox(elementId) {
-  const checkboxElement = document.getElementById(elementId);
-  let newData = {};
-  newData[elementId] = checkboxElement.checked;
-  chrome.storage.sync.set(newData);
-}
+    const textInputs = Array.from(
+      event.target.querySelectorAll("input[type=text]")
+    );
+    for (const input of textInputs) {
+      chrome.storage.sync.set({ [input.name]: input.value.substring(0, 250) });
+    }
 
-updateSettings(); 
+    alert("Saved!");
+  });
+});

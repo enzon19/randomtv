@@ -1,16 +1,21 @@
 body {
-  font-family: 'Varela', sans-serif;
+  font-family: "Varela", sans-serif;
   font-size: 14px;
   color: #333333;
 }
 
-h1, h2, h3, h4, h5, h6 {
-  font-family: 'Montserrat', sans-serif;
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: "Montserrat", sans-serif;
   margin: 0px;
   color: #ed1c24;
 }
 
-p {  
+p {
   margin: 0px;
 }
 
@@ -29,7 +34,7 @@ a:hover {
 }
 
 .panel-title {
-  font-family: 'Montserrat', sans-serif;
+  font-family: "Montserrat", sans-serif;
   background-color: #f5f5f5;
   font-weight: bold;
   padding: 6px;
@@ -38,11 +43,14 @@ a:hover {
 
 .panel {
   border: solid 1px #dddddd;
-  margin-bottom: 10px;
+  margin-bottom: 0.75rem;
 }
 
 .panel-content {
-  padding: 10px;
+  padding: 0.75rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
 }
 
 .show-grid {
@@ -58,7 +66,7 @@ a:hover {
 }
 
 .show-item {
-  padding: 4px; 
+  padding: 4px;
   background-color: #f5f5f5;
   border: solid 1px #dddddd;
   transition: all 0.2s;
@@ -70,7 +78,110 @@ a:hover {
   transition: all 0.2s;
 }
 
-.displayType-applied {
+.header-logo-title {
+  display: flex;
+  justify-items: center;
+  gap: 0.5rem;
+  margin-bottom: 8px;
+}
+
+.button {
+  display: block;
+  max-width: 100%;
+  margin-bottom: 0;
+  text-align: center;
+  cursor: pointer;
+  border: 1px solid rgb(237, 28, 36);
+  white-space: nowrap;
+  padding: 6px 12px;
+  font-size: 14px;
+  line-height: 1.428571429;
+  background-color: rgb(237, 28, 36);
+  color: #fff !important;
+  border-radius: 8px;
+  font-weight: 700;
+  transition-property: filter;
+  transition-duration: 0.15s;
+}
+
+.button.less {
+  border: 1px solid #dddddd;
+  background-color: #f5f5f5;
+  color: #333333 !important;
+}
+
+.button:hover {
+  filter: brightness(95%);
+}
+
+input[type="radio"] + label.button {
+  border: 1px solid #dddddd;
+  background-color: #f5f5f5;
+  color: #333333 !important;
+}
+
+input[type="radio"]:checked + label.button {
+  border: 1px solid rgb(237, 28, 36);
+  background-color: rgb(237, 28, 36);
+  color: #fff !important;
+}
+
+input[type="radio"]:checked + label.show-item {
   box-shadow: 0px 0px 10px 1px #ed1c231e;
-  border-color: #ed1c24
+  border-color: #ed1c24;
+}
+
+input[type="text"] {
+  width: 100%;
+  background-color: #fff;
+  border: 1px solid #ccc;
+  border-radius: 0;
+  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+  box-sizing: border-box;
+  color: #333;
+  cursor: default;
+  display: block;
+  font-family: inherit;
+  font-size: 14px;
+  font-weight: 400;
+  height: 34px;
+  margin: 0;
+  overflow: visible;
+  padding: 6px 12px;
+  text-align: start;
+  transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+  user-select: auto;
+  outline: none;
+  cursor: text;
+}
+
+input[type="text"]:focus {
+  border-color: rgb(102, 175, 233);
+}
+
+.flex-row {
+  display: flex;
+  gap: 0.75rem;
+}
+
+.panel-label {
+  display: flex;
+  gap: 0.25rem;
+  align-items: center;
+  cursor: pointer;
+}
+
+.banner {
+  display: block;
+  max-width: 100%;
+  margin-bottom: 0;
+  text-align: center;
+  cursor: pointer;
+  padding: 1rem;
+  font-size: 16px;
+  border: 1px solid #b4b4b4;
+  background-color: #fcfcfc;
+  color: #383838 !important;
+  border-radius: 8px;
+  font-weight: 900;
 }
