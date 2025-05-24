@@ -1,229 +1,270 @@
-'use strict';
-
-const list = new RegExp(/\/users\/(.*)\/lists\/(.*)\?(.*)/);
-const watchlist = new RegExp(/\/users\/(.*)\/(watchlist)\/?\??(.*)/); // \/users\/(.*)\/(watchlist)\??(.*)
-const recommendations = new RegExp(/\/users\/(.*)\/(recommendations)\/?\??(.*)/);
-let actualUrl, urlVariables, username, listId, filters;
-let isWatchlist = false;
-
-function updateVariables() {
-  actualUrl = window.location.href;
-  urlVariables = actualUrl.match(/\/users\/.*\/watchlist/) ? (isWatchlist = true, actualUrl.match(watchlist)) : (actualUrl.match(/\/users\/.*\/recommendations/) ? actualUrl.match(recommendations) : actualUrl.match(list));
-  if (urlVariables) {
-    username = urlVariables[1];
-    listId = urlVariables[2];
-    filters = urlVariables[3];
-  }
-}
-
-updateVariables();
-
-function appendButton() {
-  const htmlToInsert = `<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,200,0,0"/>
-  <style>
-  span#randomTV-button {
-    font-family: 'Material Symbols Outlined';
-    box-sizing: border-box;
-    display: inline-block;
-    font-size: 1px !important;
-    margin-left: 4px !important;
-    margin-right: 0 !important;
-    position: relative;
-    cursor: pointer;
-  }
-  span#randomTV-button::before { 
-    content: "shuffle" !important;
-    font-size: 25px !important;
-  }
-  div#randomTV-tooltip {
-    position: absolute;
-    z-index: 1;
-    bottom: 100%;
-    left: 163%;
-    margin-left: -60px;
-    opacity: 0;
-  }
-  #randomTV-button:hover #randomTV-tooltip {
-    opacity: 1;
-  }
-  .randomTV-highlight {
-    transition: all 0.4s;
-    transform: scale(1.3, 1.3);
-    z-index: 1000;
-  }
-
-  .randomTV-highlight:hover {
-    transition: all 0.4s;
-    transform: scale(1, 1);
-  }
-  .randomTV-highlight > a > div {
-    border: 1px solid #ed1c24 !important;
-    border-bottom: 0px !important;
-    box-shadow: 0px 0px 20px 4px rgba(0, 0, 0, 0.4);
-  }
-  .randomTV-highlight > .quick-icons.smaller {
-    border: 1px solid #ed1c24 !important;
-    border-top: 0px !important;
-    box-shadow: 0px 0px 20px 4px rgba(0, 0, 0, 0.4);
-  }
-  </style>
-  <span id="randomTV-button" class="material-symbols-outlined trakt-icon-arrow-right">
-    <div class="tooltip fade top in" role="tooltip" id="randomTV-tooltip"><div class="tooltip-arrow"></div><div class="tooltip-inner" style="font-family: varela round,helvetica neue,Helvetica,Arial,sans-serif !important">Random</div></div>
-  </span>`;
-  const range = document.createRange();
-  range.selectNode(document.querySelector('.dropdown.filter-dropdown'));
-  const documentFragment = range.createContextualFragment(htmlToInsert);
-  document.querySelector('.dropdown.filter-dropdown').after(documentFragment);
-
-  document.getElementById('randomTV-button').addEventListener('click', () => chooseProcess());
-  // adapted from https://developer.mozilla.org/en-US/docs/Web/API/range/createContextualFragment
-}
-
-async function chooseProcess() {
-  const isPrivateList = ['Friends', 'Private'].includes(document.querySelector('.pill.spoiler')?.innerHTML);
-  const isHidingItems = filters.includes('hide=') || filters.includes('genres=');
-  const haveMoreThanOnePage = !!document.querySelector('.pagination');
-  const disableAPI = (await chrome.storage.sync.get('disableAPI')).disableAPI;
-
-  // any of this have to be true to make local: isPrivateList, isHidingItems, !haveMoreThanOnePage, disableAPI
-  if (isPrivateList || isHidingItems || !haveMoreThanOnePage || disableAPI) {
-    localPick();
+function init() {
+  if (document.readyState !== "loading") {
+    tryAppendingButton();
   } else {
-    serverPick();
-  }
-
-  // https://randomtv.enzon19.com/pickItem?username=enzon19&list_id=world-history-school&type=movie,show,season,episode,person&is_watchlist=0
-  // https://randomtv.enzon19.com/pickItem?username=enzon19&type=movie,show,season,episode,person&is_watchlist=1
-}
-
-function getRandomItem(items) {
-  const luckNumber = Math.floor(Math.random() * items.length);
-  return items[luckNumber];
-}
-
-function localPick() {
-  const pickedItem = getRandomItem(Array.from(document.getElementsByClassName('grid-item')));
-  if (pickedItem) {
-    const pickedItem = getRandomItem(Array.from(document.getElementsByClassName('grid-item')));
-    const cover = pickedItem.querySelector('div.poster > img.real');
-    const url = cover.parentElement.parentElement;
-    const title = pickedItem.querySelectorAll('a.titles-link')[0];
-    const subtitle = pickedItem.querySelectorAll('a.titles-link')[1];
-
-    showItem(title.innerText, subtitle.innerText, url.href, cover.dataset.original, 'Local', pickedItem);
-  } else {
-    console.error('Error with RandomTV.')
-  }
-}
-
-function serverPick() {
-  let filterType = 'movie,show,season,episode,person';
-  if (filters.includes('display=')) filterType = (filters.match(/display=(.*)\&|display=(.*)/)[1] || filters.match(/display=(.*)\&|display=(.*)/)[2]) + 's';
-  
-  chrome.runtime.sendMessage({
-    'action': 'serverRequest', 
-    'username': username,
-    'listId': listId,
-    'filterType': filterType,
-    'isWatchlist': isWatchlist
-  });
-}
-
-// finishing the work of serverPick()
-chrome.runtime.onMessage.addListener(message => {
-  if (message.action == 'serverResponse') {
-    if (message.status == 200) {
-      const pickedItem = message.response;
-      showItem(pickedItem.title, pickedItem.subtitle, pickedItem.url, pickedItem.cover, 'API');
-    } else {
-      localPick();
-    }
-  } else if (message.action == 'serverError') {
-    localPick();
-  }
-})
-
-async function showItem(title, subtitle, url, cover, method, pickedItem) {
-  const displayType = (await chrome.storage.sync.get('displayType')).displayType;
-  const showMethod = (await chrome.storage.sync.get('showMethod')).showMethod;
-  const displayActions = {
-    'modal': showUsingModal,
-    'highlight': showHighlighting,
-    'redirect': showRedirecting
-  }
-  displayActions[displayType](title, subtitle, url, cover, method, showMethod, pickedItem);
-}
-
-async function showUsingModal(title, subtitle, url, cover, method, showMethod) {
-  removeHighlights();
-  if (!document.getElementsByClassName('randomTV-modalDialog')[0]) {
-    const modal = `<link rel="stylesheet" href="${chrome.runtime.getURL("/data/modal.css")}" class="randomTV-modal">
-    <div class="randomTV-modalDialog">
-      <div class="randomTV-modalDialogInside">
-        ${showMethod ? `<span class="randomTV-showMethod">${method}</span>` : ""}
-        <img src=${cover} style="max-height: 400px; margin: 15px;">
-        <h2 style="margin-top: 5px !important;">${title}</h2>
-        ${subtitle ? `<span>${subtitle}</span>` : ""}
-        <div class="randomTV-buttonsGrid">
-          <div class="form-inputs">
-            <a class="checkin-submit btn btn-basic btn-block" id="randomTV-closeModal">Close</a>
-          </div>
-          <div class="form-inputs">
-            <a class="checkin-submit btn btn-primary btn-block" id="randomTV-viewItemModal" href="${url}">View Item</a>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="randomTV-backdrop modal-backdrop fade in blur"></div>`
-
-    document.getElementsByTagName('body')[0].insertAdjacentHTML('beforeend', modal);
-
-    document.getElementById('randomTV-closeModal').addEventListener('click', () => {
-      document.getElementsByClassName('randomTV-modalDialogInside')[0].remove();
-      document.getElementsByClassName('randomTV-modalDialog')[0].remove();
-      document.getElementsByClassName('randomTV-modal')[0].remove();
-      document.getElementsByClassName('randomTV-backdrop')[0].remove();
+    document.addEventListener("DOMContentLoaded", () => {
+      tryAppendingButton();
     });
   }
 }
 
-function showHighlighting(title, subtitle, url, cover, method, showMethod, pickedItem) {
-  if (method == 'API') {
-    showUsingModal(title, subtitle, url, cover, method, showMethod);
-  } else {
-    removeHighlights();
-    pickedItem.scrollIntoView({"behavior": "smooth"});
-    pickedItem.classList.add('randomTV-highlight');
-  }
+document.addEventListener("turbo:load", () => {
+  init(); // executado ao navegar pelos links do Trakt
+});
 
-  if (showMethod) alert(method);
+init(); // executado ao abrir uma aba
+
+function tryAppendingButton() {
+  const currentUrl = window.location.href;
+  const supportedURLs =
+    /trakt\.tv\/users\/.*?\/(watchlist|favorites|recommendations|lists\/.*)/;
+  if (
+    supportedURLs.test(currentUrl) &&
+    !document.querySelector("#randomtv-button")
+  )
+    appendButton(currentUrl);
 }
 
-function showRedirecting(title, subtitle, url, cover, method, showMethod) {
+function appendButton(url) {
+  // Create the Random button
+  const span = document.createElement("span");
+  span.className = "fa-thin fa-shuffle";
+  span.id = "randomtv-button";
+  span.style.position = "relative";
+  span.style.cursor = "pointer";
+
+  // Create tooltip
+  const tooltip = document.createElement("div");
+  tooltip.className = "tooltip fade top in";
+  tooltip.id = "randomTV-tooltip";
+  tooltip.setAttribute("role", "tooltip");
+
+  tooltip.innerHTML = `
+    <div class="tooltip-arrow"></div>
+    <div class="tooltip-inner" style="font-family: 'Varela Round', 'Helvetica Neue', Helvetica, Arial, sans-serif">
+      Random
+    </div>
+  `;
+
+  // Style the tooltip (as in your CSS)
+  tooltip.style.cssText =
+    "position:absolute;z-index:1;bottom:100%;left:163%;margin-left:-60px;opacity:0;transition:opacity 0.2s ease;";
+
+  // Append tooltip to span
+  span.appendChild(tooltip);
+
+  // Add click behavior
+  span.addEventListener("click", async () => {
+    const { username, apiRoute, filterAndSort } = getParamsFromURL(url);
+
+    const methods = {
+      local: pickItemLocally,
+      api: pickItemAPI,
+    };
+    const method = await chooseMethod(filterAndSort);
+
+    methods[method](username, apiRoute, filterAndSort);
+  });
+
+  // Inject into the page
+  const target = document.querySelector(".dropdown.filter-dropdown");
+  if (target) {
+    target.after(span);
+  }
+}
+
+function getParamsFromURL(url) {
+  const params = url.match(
+    /\/users\/(.*?)\/(watchlist|favorites|lists|recommendations)(?:\/([^\/\?]+))?\?(.*)/
+  );
+
+  try {
+    const username = params[1];
+    const type = params[2];
+    const filterAndSort = params[4];
+
+    let apiRoute;
+    if (type === "lists") {
+      apiRoute = `lists/${params[3]}/items`;
+    } else {
+      apiRoute = type === "recommendations" ? "favorites" : type;
+    }
+
+    return {
+      username,
+      apiRoute,
+      filterAndSort: Object.fromEntries(new URLSearchParams(filterAndSort)),
+    };
+  } catch (e) {
+    console.error("Error getting params from URL: ", url);
+  }
+}
+
+async function chooseMethod(filterAndSort) {
+  let method =
+    (await chrome.storage.sync.get("defaultMethod"))?.defaultMethod || "api";
+  if (method === "local") return method;
+
+  // se tiver outras coisas filtrando, adeus!
+  if (
+    Object.keys(filterAndSort).some(
+      (e) => !["sort", "display", "fade"].includes(e)
+    )
+  )
+    method = "local";
+
+  // se não tiver mais de uma página, adeus!
+  if (!document.querySelector(".pagination-top").textContent) method = "local";
+
+  //se for highlight, adeus!
+  const displayType =
+    (await chrome.storage.sync.get("displayType"))?.displayType || "modal";
+  if (displayType === "highlight") method = "local";
+
+  return method;
+}
+
+function pickItemLocally() {
+  const items = Array.from(document.querySelectorAll(".grid-item"));
+
+  if (items.length > 0) {
+    const luckyNumber = Math.floor(Math.random() * items.length);
+    const pickedItem = items[luckyNumber];
+
+    const title = pickedItem
+      .querySelector("div.poster")
+      .getAttribute("data-original-title");
+    const subtitle = pickedItem.querySelectorAll("a.titles-link")[1].innerText;
+    const url = pickedItem.getAttribute("data-url");
+    const cover = pickedItem.querySelector("div.poster > img.real").src;
+
+    showItem(title, subtitle, url, cover, "Local", pickedItem);
+  } else {
+    console.error("RandomTV: no item picked");
+    alert("No item was found to RandomTV to pick. Sorry.");
+  }
+}
+
+async function pickItemAPI() {
+  /* 
+    https://api.trakt.tv/users/id/ | lists/list_id/items | /type/sort_by/sort_how
+    https://api.trakt.tv/users/id/ | watchlist | /type/sort_by/sort_how
+    https://api.trakt.tv/users/id/ | favorites | /type/sort_by/sort_how (recommendations)
+  */
+  console.log("api");
+}
+
+async function showItem(title, subtitle, url, cover, method, pickedElement) {
+  const displayType =
+    (await chrome.storage.sync.get("displayType")).displayType || "modal";
+  const displayActions = {
+    modal: showModal,
+    highlight: highlight,
+    redirect: redirect,
+  };
+
+  const showMethod =
+    (await chrome.storage.sync.get("showMethod")).showMethod || false;
+
+  displayActions[displayType](
+    title,
+    subtitle,
+    url,
+    cover,
+    method,
+    showMethod,
+    pickedElement
+  );
+}
+
+async function showModal(title, subtitle, url, cover, method, showMethod) {
+  removeHighlights();
+  if (document.querySelector("#randomTV-modal")) return;
+
+  // Backdrop
+  const backdrop = document.createElement("div");
+  backdrop.className = "modal-backdrop fade in blur";
+
+  // Modal
+  const modal = document.createElement("div");
+  modal.className = "checkin-modal fade in";
+  modal.id = "randomTV-modal";
+  modal.setAttribute("role", "dialog");
+  modal.setAttribute("tabindex", "-1");
+  modal.setAttribute("aria-hidden", "false");
+  modal.style.display = "block";
+  modal.style.top = "135px";
+
+  modal.innerHTML = `
+    <div class="checkin-close trakt-icon-delete-thick" id="randomTV-closeModal"></div>
+    <div class="form-signin">
+      ${showMethod ? `<span class="randomTV-showMethod">${method}</span>` : ""}
+      <img src="${cover}" class="randomTV-cover">
+      <h2 class="randomTV-title">${title}</h2>
+      ${
+        subtitle && subtitle !== " "
+          ? `<span class="randomTV-subtitle">${subtitle}</span>`
+          : ""
+      }
+      <div class="form-inputs">
+        <a class="checkin-submit btn btn-primary btn-block" style="margin: 0" id="randomTV-viewItemModal" href="${url}" target="_blank" rel="noopener noreferrer">View Item</a>
+      </div>
+    </div>
+  `;
+
+  document.body.appendChild(modal);
+  document.body.appendChild(backdrop);
+
+  const close = () => {
+    modal.remove();
+    backdrop.remove();
+    document.removeEventListener("keydown", onEsc);
+  };
+
+  document
+    .getElementById("randomTV-closeModal")
+    ?.addEventListener("click", close);
+  document
+    .getElementById("randomTV-closeModalBtn")
+    ?.addEventListener("click", close);
+  backdrop.addEventListener("click", close);
+
+  const onEsc = (e) => {
+    if (e.key === "Escape") close();
+  };
+  document.addEventListener("keydown", onEsc);
+}
+
+function highlight(
+  title,
+  subtitle,
+  url,
+  cover,
+  method,
+  showMethod,
+  pickedElement
+) {
+  removeHighlights();
+  if (showMethod) alert(method);
+
+  const pickedElementTop =
+    pickedElement.getBoundingClientRect().top + window.pageYOffset;
+  window.scrollTo({
+    top: pickedElementTop - 165,
+    behavior: "smooth",
+  });
+
+  pickedElement.classList.add("randomTV-highlight");
+}
+
+function removeHighlights() {
+  for (const element of document.querySelectorAll(".randomTV-highlight")) {
+    element.classList.remove("randomTV-highlight");
+  }
+}
+
+function redirect(title, subtitle, url, cover, method, showMethod) {
   removeHighlights();
   if (showMethod) alert(method);
   window.location.href = url;
 }
-
-function removeHighlights() {
-  for (const element of document.getElementsByClassName('randomTV-highlight')) {
-    element.classList.remove('randomTV-highlight')
-  }
-}
-
-function main() {
-  if (document.readyState !== 'loading') {
-    if (username && listId) appendButton();
-  } else {
-    document.addEventListener('DOMContentLoaded', () => {
-      if (username && listId) appendButton();
-    });
-  }
-}
-
-document.addEventListener('turbolinks:load', function() {
-  updateVariables();
-  main();
-});
-
-main();
