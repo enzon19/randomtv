@@ -1,5 +1,5 @@
 const radiosNames = ["displayType", "defaultMethod"];
-const checkboxesNames = ["showMethod", "disableAPI"];
+const checkboxesNames = ["showMethod"];
 const textsInputsNames = ["apiKey"];
 
 async function updateSettings() {
