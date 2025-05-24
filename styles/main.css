@@ -102,6 +102,7 @@ a:hover {
   font-weight: 700;
   transition-property: filter;
   transition-duration: 0.15s;
+  font-family: "Varela", sans-serif;
 }
 
 .button.less {
