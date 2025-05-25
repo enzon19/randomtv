@@ -1,7 +1,3 @@
-#randomTV-button:hover #randomTV-tooltip {
-  opacity: 1;
-}
-
 .randomTV-highlight {
   transition: all 0.4s;
   transform: scale(1.3, 1.3);
@@ -29,6 +25,13 @@
   padding-top: 25px;
 }
 
+.randomTV-subtitle {
+  font-size: 12px;
+  text-align: center;
+  margin-top: -25px;
+  margin-bottom: 20px;
+}
+
 .randomTV-showMethod {
   width: min-content;
   margin: 0 auto;
@@ -43,4 +46,17 @@
   height: 27rem;
   width: min-content;
   margin: 0 auto;
+}
+
+.randomTV-loading {
+  animation: randomTV-loading-animation 1.5s cubic-bezier(0.4, 0, 0.6, 1)
+    infinite;
+  cursor: wait !important;
+  z-index: 2;
+}
+
+@keyframes randomTV-loading-animation {
+  50% {
+    opacity: 0.5;
+  }
 }
