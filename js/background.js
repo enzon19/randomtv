@@ -7,7 +7,7 @@ chrome.runtime.onInstalled.addListener(async (details) => {
     };
     await chrome.storage.sync.set(defaultValues);
 
-    chrome.runtime.setUninstallURL("https://randomtv.enzon19.com/uninstall");
+    chrome.runtime.setUninstallURL("https://forms.gle/awwLwngUChF4WZpW9");
   } else if (details.reason == "update") {
     chrome.tabs.create({
       url: "/html/updated.html",
@@ -29,7 +29,9 @@ chrome.runtime.onMessage.addListener(
           (await chrome.storage.sync.get("apiKey"))?.apiKey ||
           "009ac196a9311ba017007c49ef8634fb0cf98828b2f5fb1d3e4f56f6a8a28c84";
         const request = await fetch(
-          `https://api.trakt.tv/users/${username}/${route}${type ? `/${type}` : ""}/?extended=images`,
+          `https://api.trakt.tv/users/${username}/${route}${
+            type ? `/${type}` : ""
+          }/?extended=images`,
           {
             headers: {
               "Content-Type": "application/json",
