@@ -44,7 +44,5 @@ document.querySelectorAll("form").forEach((form) => {
     for (const input of textInputs) {
       chrome.storage.sync.set({ [input.name]: input.value.substring(0, 250) });
     }
-
-    alert("Saved!");
   });
 });
