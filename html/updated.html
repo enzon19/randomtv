@@ -1,12 +1,79 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>RandomTV Updated!</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title id="settings">RandomTV Updated!</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500&family=Varela&display=swap"
+      rel="stylesheet"
+    />
+
+    <link rel="icon" type="image/x-icon" href="/assets/favicon.ico" />
+
+    <link rel="stylesheet" href="/styles/main.css" />
   </head>
-  <body>
-    <h1>v1.0.0.0 — Updated</h1>
+
+  <body class="container" style="margin: 0 auto; padding: 8px">
+    <!-- Title -->
+    <div
+      class="header-logo-title"
+      style="justify-content: center; text-align: center"
+    >
+      <img src="/assets/logo.png" alt="RandomTV Logo" height="50rem" />
+      <div>
+        <h1>RandomTV</h1>
+        <p id="extensionDescription">
+          Pick a random item from a list on Trakt.
+        </p>
+      </div>
+    </div>
+
+    <!-- Release Notes -->
+    <div style="text-align: center; margin: 0.75rem 0">
+      <h1>RandomTV has been updated!</h1>
+      <h2>Version 2 is out!</h2>
+      <ul
+        style="
+          text-align: left;
+          display: inline-block;
+          margin-top: 1rem;
+          font-size: 16px;
+        "
+      >
+        <li>Complete rewrite of the codebase</li>
+        <li>Improved speed and performance</li>
+        <li>UI even more similar to Trakt</li>
+        <li>"Highlight" now works with API method when possible</li>
+        <li>No external server, just Trakt API</li>
+        <li>Bug fixes</li>
+      </ul>
+    </div>
+
+    <!-- More -->
+    <div class="flex-row" style="max-width: 50rem; margin: 0 auto">
+      <a
+        href="https://enzon19.com/trakt-tools"
+        target="blank"
+        class="banner"
+        style="width: 100%; padding: 0.7rem"
+      >
+        <div class="flex-row" style="align-items: center; justify-content: center">
+          <img src="/assets/other tools.png" alt="Icons" style="height: 2.5rem" />
+          <div>Check out my other Trakt tools!</div>
+        </div>
+      </a>
+      <a
+        href="https://enzon19.com/donate"
+        target="blank"
+        class="button"
+        style="display: flex; align-items: center"
+        ><span>DONATE</span></a
+      >
+    </div>
   </body>
 </html>
