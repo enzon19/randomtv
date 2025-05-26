@@ -17,7 +17,7 @@ init(); // executado ao abrir uma aba
 function tryAppendingButton() {
   const currentUrl = window.location.href;
   const supportedURLs =
-    /trakt\.tv\/users\/.*?\/(watchlist|favorites|recommendations|lists\/.*)/;
+    /trakt\.tv\/users\/.*?\/(watchlist|favorites|recommendations|collection|ratings|lists\/.*)/;
   if (
     supportedURLs.test(currentUrl) &&
     !document.querySelector("#randomtv-button")
@@ -85,7 +85,7 @@ function appendButton(url) {
 
 function getParamsFromURL(url) {
   const params = url.match(
-    /.*\/users\/(.*?)\/(watchlist|favorites|lists|recommendations)(?:\/([^\/\?]+))?(?:\?(.*))?/
+    /.*\/users\/(.*?)\/(watchlist|favorites|lists|recommendations|collection|ratings)(?:\/([^\/\?]+))?(?:\?(.*))?/
   );
 
   try {
@@ -135,7 +135,9 @@ function getRandomItem(items) {
 }
 
 function pickItemLocally() {
-  const items = Array.from(document.querySelectorAll(".grid-item"));
+  const items = Array.from(document.querySelectorAll(".grid-item")).filter(
+    (e) => !e.classList.contains("fanarts")
+  );
 
   if (items.length > 0) {
     const pickedItem = getRandomItem(items);
@@ -144,7 +146,9 @@ function pickItemLocally() {
       .getAttribute("data-original-title");
     const subtitle = pickedItem.querySelectorAll("a.titles-link")[1].innerText;
     const url = pickedItem.getAttribute("data-url");
-    const cover = pickedItem.querySelector("div.poster > img.real").src;
+    const cover = pickedItem
+      .querySelector("div.poster > img.real")
+      .getAttribute("data-original");
 
     showItem(title, subtitle, url, cover, "Local", pickedItem);
   } else {
