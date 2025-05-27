@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>RandomTV for Trakt</title>
+    <meta name="description" content="" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <link
+      rel="apple-touch-icon"
+      sizes="180x180"
+      href="assets/favicon/apple-touch-icon.png"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="32x32"
+      href="assets/favicon/favicon-32x32.png"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="16x16"
+      href="assets/favicon/favicon-16x16.png"
+    />
+    <link
+      rel="icon"
+      type="image/x-icon"
+      sizes="48x48"
+      href="assets/favicon/favicon.ico"
+    />
+
+    <link rel="stylesheet" href="/styles/main.css" />
+    <link rel="stylesheet" href="/styles/grid.css" />
+    <link rel="stylesheet" href="/styles/displayOptions.css" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500&family=Varela&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <div>
+      <div class="text-hover">
+        <img src="/assets/logo.png" alt="RandomTV Logo" class="logo" />
+        <h1 class="title">RandomTV</h1>
+        <span style="padding: 0px 8px"
+          >An extension to pick a random item from a list on Trakt.</span
+        ><br />
+        <a
+          onclick="document.getElementById('install').scrollIntoView({'behavior': 'smooth'})"
+          class="main-button"
+          >Install</a
+        >
+      </div>
+      <div
+        class="image-repeat"
+        style="background-image: url('/assets/background/backgroundCut.png')"
+      ></div>
+      <div class="shade"></div>
+    </div>
+    <div>
+      <h2>Easy Steps</h2>
+      <div class="gridContainer">
+        <div class="gridItem">
+          <img
+            src="/assets/steps/pageListPrint.png"
+            alt="Trakt's page list"
+          /><br />
+          <span>Access a Trakt list</span>
+        </div>
+        <div class="gridItem">
+          <img src="/assets/steps/randomButton.png" alt="Random button" /><br />
+          <span>Click on the <i>Random</i> button</span>
+        </div>
+        <div class="gridItem">
+          <img
+            src="/assets/steps/resultModal.png"
+            alt="Result with random item"
+          /><br />
+          <span>Here's your random item!</span>
+        </div>
+      </div>
+    </div>
+    <div id="te">
+      <h2>Three Ways to Display</h2>
+      <div class="show-grid">
+        <div class="show-item displayType" id="displayType-highlight">
+          <img
+            class="show-image"
+            src="/assets/displayOptions/icons/highlight.png"
+          />
+          <br />
+          <span>Highlight</span>
+        </div>
+        <div
+          class="show-item displayType displayType-applied"
+          id="displayType-modal"
+        >
+          <img
+            class="show-image"
+            src="/assets/displayOptions/icons/modal.png"
+          />
+          <br />
+          <span>Modal</span>
+        </div>
+        <div class="show-item displayType" id="displayType-redirect">
+          <img
+            class="show-image"
+            src="/assets/displayOptions/icons/redirect.png"
+          />
+          <br />
+          <span>Redirect</span>
+        </div>
+      </div>
+      <br />
+      <div style="padding: 0px 8px">
+        <img
+          src="/assets/displayOptions/results/modal.png"
+          alt="Preview selected option above"
+          id="previewOption"
+        />
+      </div>
+    </div>
+    <div id="install" style="margin-top: 20px">
+      <h2 style="margin-top: 0px">Install</h2>
+      <div class="showFeatures alignCenter" style="align-items: center">
+        <div class="feature" style="min-height: 155px">
+          <a
+            href="https://addons.mozilla.org/pt-BR/firefox/addon/randomtv-for-trakt/"
+            target="_blank"
+          >
+            <img
+              style="cursor: pointer; width: 206px; height: 72px"
+              src="/assets/stores/firefox.webp"
+            />
+          </a>
+          <br /><br />
+          <span style="margin-bottom: 0px">For browsers based on Firefox.</span>
+        </div>
+        <div class="feature" style="min-height: 155px">
+          <a
+            href="https://chromewebstore.google.com/detail/randomtv-for-trakt/pfpgceagljbjijjfbhafopadmhdifoaa"
+            target="_blank"
+          >
+            <img
+              style="
+                cursor: pointer;
+                width: 238px;
+                height: 72px;
+                box-shadow: 0px 0px 26px -13px rgb(186, 20, 26);
+              "
+              src="/assets/stores/chrome.png"
+            />
+          </a>
+          <br /><br />
+          <span style="margin-bottom: 0px"
+            >For browsers based on Chromium.<br />Chrome, Edge, Opera, Vivaldi,
+            Brave and other.</span
+          >
+        </div>
+      </div>
+    </div>
+    <footer style="padding: 8px 0px">
+      Developed by
+      <a target="blank" href="https://enzon19.com">Enzo (enzon19)</a>. See this
+      project on
+      <a target="blank" href="https://github.com/enzon19/randomtv">GitHub</a>.
+      Make an donation
+      <a target="blank" href="https://enzon19.com/donate">here</a>.
+    </footer>
+
+    <script src="/scripts/displayOptions.js"></script>
+  </body>
+</html>
