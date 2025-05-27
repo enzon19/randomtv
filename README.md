@@ -9,7 +9,7 @@
     <br />
     <a href="https://chromewebstore.google.com/detail/randomtv-for-trakt/pfpgceagljbjijjfbhafopadmhdifoaa"><strong>Install for Chrome »</strong></a>
     <br />
-    <a href="https://randomtv.enzon19.com">Website</a> • <a href="https://addons.mozilla.org/en-US/firefox/addon/randomtv-for-trakt/">Install for Firefox</a>
+    <a href="https://addons.mozilla.org/en-US/firefox/addon/randomtv-for-trakt/">Install for Firefox</a> • <a href="https://randomtv.enzon19.com">Website</a>
   </p>
 
 </p>
@@ -19,10 +19,10 @@
 Click an image to view full size.
 
 <div align="center">
-  <img src="https://github.com/user-attachments/assets/33a92acc-b1a2-4e56-ba8f-dbc40a7fa601" height="220" style="vertical-align: middle; margin: 5px;" />
-  <img src="https://github.com/user-attachments/assets/aebd3121-aeb4-419f-87cb-6d4e144ac366" height="220" style="vertical-align: middle; margin: 5px;" />
-  <img src="https://github.com/user-attachments/assets/9cb972d3-43c2-42ad-bcde-fc96dd9d2fdb" height="220" style="vertical-align: middle; margin: 5px;" />
-  <img src="https://github.com/user-attachments/assets/d7ed766f-a80b-4d36-9346-392b19f41815" height="220" style="vertical-align: middle; margin: 5px;" />
+  <img src="https://github.com/user-attachments/assets/a10752d9-feb3-4375-b004-8ef108b4a6b8" height="220" style="vertical-align: middle; margin: 5px;" />
+  <img src="https://github.com/user-attachments/assets/bf590f35-dfdd-4fda-aade-46df58277013" height="220" style="vertical-align: middle; margin: 5px;" />
+  <img src="https://github.com/user-attachments/assets/0ccbc739-5cf7-4e43-a53b-d7ad77f2e82c" height="220" style="vertical-align: middle; margin: 5px;" />
+  <img src="https://github.com/user-attachments/assets/747aedda-61a4-4dd1-898b-0bd5238f2e43" height="220" style="vertical-align: middle; margin: 5px;" />
 </div>
 
 ## About
