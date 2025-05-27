@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="./assets/logo.png" alt="RandomTV Logo" height="180px" />
+  <img src="./assets/logo.png" alt="RandomTV Logo" height="120px" />
   <h1 align="center">
     RandomTV for Trakt
   </h1>
