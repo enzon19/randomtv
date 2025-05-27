@@ -9,7 +9,7 @@ function applyEffectOnOption(option, elementId) {
 }
 
 function setOption(option, elementId) {
-  document.getElementById("previewOption").src = "/assets/displayOptions/results/" + elementId.split("-")[1] + ".png";
+  document.getElementById("previewOption").src = "assets/displayOptions/results/" + elementId.split("-")[1] + ".png";
   applyEffectOnOption(option, elementId);
 }
 
