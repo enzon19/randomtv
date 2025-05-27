@@ -5,7 +5,7 @@
   </h1>
 
   <p align="center">
-    Pick a random item from a list on Trakt.
+    An extension to pick a random item from a list on Trakt.
     <br />
     <a href="https://chromewebstore.google.com/detail/randomtv-for-trakt/pfpgceagljbjijjfbhafopadmhdifoaa"><strong>Install for Chrome »</strong></a>
     <br />
