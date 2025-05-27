@@ -50,6 +50,8 @@ To reproduce the project locally for development or contribution:
      - Click *Load unpacked* and select the `randomtv`
 
    - **Firefox**:  
+     - Rename `manifest.json` to `manifest-chrome.json`
+     - Rename `manifest-firefox.json` to `manifest.json`
      - Go to `about:debugging#/runtime/this-firefox`  
      - Click *Load Temporary Add-on* and select the `manifest.json` file in the appropriate folder
 
